@@ -1,4 +1,4 @@
-# wasm-chip8-c
+# chip8-wasm ( JS + C )
 A WebAssembly CHIP-8 emulator written in C (in progress...)
 
 ## Features:
