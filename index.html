@@ -2,126 +2,188 @@
 <html>
 <head>
   <title></title>
-    <style>
-        #memory_output{
-            width: 625px;
-            border: 1px solid red;
-            overflow-x: auto;
-            height: 600px;
-            white-space: pre-wrap;
-            padding: 5px;
-            font-size: 10px !important;
-        }
-        #memory_output span {
-            margin-right: 5px;
-        }
-        #display{
-            width: 64px;
-            height: 32px;
-            zoom:10;
-            background: black;
-        }
-        #col-left{
-            display: inline-block;
-        }
-        #col-right{
-            display: inline-block;
-            vertical-align: top;
-            white-space: pre-wrap;
-        }
-        .regName {
-            background: red;
-            border-radius: 5px;
-            padding: 4px;
-            width: 20px;
-            display: inline-block;
-            text-align: center;
-            color: white;
-            margin: 2px;
-            font-size: 9px;
-        }
-        .reg {
-            display: inline-block;
-            white-space: normal;
-        }
-    </style>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="styles.css">
   <script src="chip8.js"></script>
 </head>
 <body>
-    <div id="col-left">
+    <div id="grid-wrapper">
         <canvas id="display"></canvas>
         <pre id="memory_output"></pre>
-    </div>
-    <div id="col-right">
-        <div id="">
+        <div id="groupInspector">
+            <div id="groupStack">
+                <div id="stack_0" class="stack-slot" disabled>00 00</div>
+                <div id="stack_1" class="stack-slot" disabled>00 00</div>
+                <div id="stack_2" class="stack-slot" disabled>00 00</div>
+                <div id="stack_3" class="stack-slot" disabled=>00 00</div>
+                <div id="stack_4" class="stack-slot" disabled>00 00</div>
+                <div id="stack_5" class="stack-slot" current>00 00</div>
+                <div id="stack_6" class="stack-slot">00 00</div>
+                <div id="stack_7" class="stack-slot">00 00</div>
+                <div id="stack_8" class="stack-slot">00 00</div>
+                <div id="stack_9" class="stack-slot">00 00</div>
+                <div id="stack_10" class="stack-slot">00 00</div>
+                <div id="stack_11" class="stack-slot">00 00</div>
+                <div id="stack_12" class="stack-slot">00 00</div>
+                <div id="stack_13" class="stack-slot">00 00</div>
+                <div id="stack_14" class="stack-slot">00 00</div>
+                <div id="stack_15" class="stack-slot">00 00</div>
+                <div class="label-group"></div>
+            </div>
+            <div id="groupRegisters">
+                <div class="reg">
+                    <span id="reg_SP" class="regName">☰ SP</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span id="reg_PC" class="regName">➤ PC</span><span>00 00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">I</span><span>00 00</span>
+                </div>
+                <br>
+
+                <div class="reg">
+                    <span class="regName">V0</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V1</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V2</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V3</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V4</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V5</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V6</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V7</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V8</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V9</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V10</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V11</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V12</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V13</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V14</span><span>00</span>
+                </div>
+                <div class="reg">
+                    <span class="regName">V15</span><span>00</span>
+                </div>
+                <div class="reg">
+                <span id="reg_DT" class="regName">⚆ DT</span><span>00 00</span>
+                </div>
+                <div class="reg">
+                    <span id="reg_ST" class="regName">⚆ ST</span><span>00 00</span>
+                </div>
+
+                <div class="label-group"></div>
+
+            </div>
+            <div id="groupInstructions">
+                <div class="row">
+                    <span class="info">
+                        <span class="breakpoint">⚑</span>
+                        <span class="current">➤</span>
+                    </span>
+                    <span class="offset">02 00</span>
+                    <span class="opcode">A0 FF</span>
+                    <span class="nemonic">mov V1, V2</span>
+                </div>
+                <div class="row" current breakpoint>
+                    <span class="info">
+                        <span class="breakpoint">⚑</span>
+                        <span class="current">➤</span>
+                    </span>
+                    <span class="offset">02 00</span>
+                    <span class="opcode">A0 FF</span>
+                    <span class="nemonic">mov V1, V2</span>
+                </div>
+                <div class="row" breakpoint>
+                    <span class="info">
+                        <span class="breakpoint">⚑</span>
+                        <span class="current">➤</span>
+                    </span>
+                    <span class="offset">02 00</span>
+                    <span class="opcode">A0 FF</span>
+                    <span class="nemonic">mov V1, V2</span>
+                </div>
+                <div class="row">
+                    <span class="info">
+                        <span class="breakpoint">⚑</span>
+                        <span class="current">➤</span>
+                    </span>
+                    <span class="offset">02 00</span>
+                    <span class="opcode">A0 FF</span>
+                    <span class="nemonic">mov V1, V2</span>
+                </div>
+                <div class="row">
+                    <span class="info">
+                        <span class="breakpoint">⚑</span>
+                        <span class="current">➤</span>
+                    </span>
+                    <span class="offset">02 00</span>
+                    <span class="opcode">A0 FF</span>
+                    <span class="nemonic">mov V1, V2</span>
+                </div>
+                <div class="row" return>
+                    <span class="info">
+                        <span class="breakpoint">⚑</span>
+                        <span class="current">➤</span>
+                    </span>
+                    <span class="offset">02 00</span>
+                    <span class="opcode">A0 FF</span>
+                    <span class="nemonic">ret</span>
+                </div>
+                <div class="row">
+                    <span class="info">
+                        <span class="breakpoint">⚑</span>
+                        <span class="current">➤</span>
+                    </span>
+                    <span class="offset">02 00</span>
+                    <span class="opcode">A0 FF</span>
+                    <span class="nemonic">mov V1, V2</span>
+                </div>
+                <div class="row">
+                    <span class="info">
+                        <span class="breakpoint">⚑</span>
+                        <span class="current">➤</span>
+                    </span>
+                    <span class="offset">02 00</span>
+                    <span class="opcode">A0 FF</span>
+                    <span class="nemonic">mov V1, V2</span>
+                </div>
+            <div class="label-group"></div>
+            </div>
+
+
+        </div>
+        <div id="control">
+            <br>
+            <br>
             <button type="button" onclick="Machine.loadROM()">Load Rom</button>
             <button type="" onclick="Machine.memoryDump()">Memory Dump</button>
             <button type="">Reset Memory</button>
-        </div>
-
-        <div class="reg">
-            <span class="regName">V0</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V1</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V2</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V3</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V4</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V5</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V6</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V7</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V8</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V9</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V10</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V11</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V12</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V13</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V14</span>
-            <span>00</span>
-        </div>
-        <div class="reg">
-            <span class="regName">V15</span>
-            <span>00</span>
         </div>
     </div>
 </body>

@@ -150,6 +150,8 @@ int getMemorySize(){ return sizeof(Memory); }
 
 int clearRegisters(){
     memset( &Register, 0x00, sizeof(struct register_t) );
+    Register.PC = 0x200;
+
     return true;
 }
 
@@ -161,6 +163,8 @@ int clearMemory(){
         Memory[i] = 0;
         i++;
     }
+    // The data should be stored in the interpreter area of Chip-8 memory (0x000 to 0x1FF)
+    memcpy( Memory , MemoryCharSprites, sizeof(MemoryCharSprites) );
     return true;
 }
 
@@ -169,13 +173,7 @@ int init(int argc, char** argv){
     _console(0);
     clearRegisters();
     clearMemory();
-    //memset( &Memory, 0x00, sizeof(Memory) );
-    // The data should be stored in the interpreter area of Chip-8 memory (0x000 to 0x1FF)
-    memcpy( Memory , MemoryCharSprites, sizeof(MemoryCharSprites) );
 
-    Register.PC = 0x200;
-
-    loadRom("PONG");
     return true;
 }
 
