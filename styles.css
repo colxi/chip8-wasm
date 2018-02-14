@@ -2,7 +2,7 @@
 * @Author: colxi
 * @Date:   2018-02-06 18:11:53
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-02-08 17:04:27
+* @Last Modified time: 2018-02-13 16:06:07
 */
 body{
 	background: #282828;
@@ -16,6 +16,17 @@ body{
 }
 
 body *{ cursor: default;}
+
+.ps .ps__rail-x:hover, .ps .ps__rail-y:hover, .ps .ps__rail-x:focus,
+.ps .ps__rail-y:focus, .ps .ps__rail-x.ps--clicking, .ps .ps__rail-y.ps--clicking{
+	background-color: transparent !important;
+}
+
+.ps__rail-y:hover > .ps__thumb-y,
+.ps__rail-y:focus > .ps__thumb-y,
+.ps__rail-y.ps--clicking .ps__thumb-y{
+	width: 6px !important;
+}
 
 .label-group{
 	position: absolute;
@@ -39,16 +50,23 @@ body *{ cursor: default;}
     width: 37px;
     left: -15px;
 }
+.divider-group {
+    border-bottom: 1px solid #3e3e3e;
+    margin-bottom: 12px;
+    margin-top: 8px;
+}
+
 #grid-wrapper{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
     position: relative;
     height: 100%;
+    max-width: 1240px;
 }
 #groupInspector{
 	display: grid;
-    grid-template-columns: 80px 190px 250px;
+    grid-template-columns: 120px 190px 250px;
     grid-gap: 15px;
     grid-column: 2;
     grid-row: 1;
@@ -64,13 +82,11 @@ body *{ cursor: default;}
 }
 
 #memory_output{
-    grid-column: 1;
-    grid-row: 2;
     font-family: monospace;
     overflow-x: auto;
     white-space: pre-wrap;
-    padding: 5px;
     font-size: 10px !important;
+    position:relative;
 }
 
 #groupStack{
@@ -80,6 +96,7 @@ body *{ cursor: default;}
     padding: 5px;
     margin-right: 15px;
     padding-right: 10px;
+    padding-left: 10px;
 }
 
 .stack-slot {
@@ -88,9 +105,11 @@ body *{ cursor: default;}
     background: #3d3d3d61;
     height: 15px;
     border: 1px solid transparent;
+    display: inline-block;
+    width: 50px;
 }
 
-.stack-slot:nth-child(odd) {
+#groupStack [group-content] > div:nth-child(odd) .stack-slot {
     background: transparent;
 }
 
@@ -99,6 +118,7 @@ body *{ cursor: default;}
     background: #fa652e;
     color:white;
     border-radius: 5px 0;
+
 }
 
 .stack-slot[disabled] {
@@ -115,7 +135,7 @@ body *{ cursor: default;}
 .regName {
     background: #FF9800;
     border-radius: 5px 0;
-    padding: 4px;
+    padding: 2px;
     width: 30px;
     display: inline-block;
     text-align: center;
@@ -150,77 +170,117 @@ body *{ cursor: default;}
     position: relative;
     margin-right: 15px;
 }
-#groupInstructions > .row{
+#groupInstructions  [group-content]{
+	height: 320px;
+    overflow: hidden;
+    position: relative;
+}
+#groupInstructions  .row{
     padding: 2px;
     border-radius: 5px 0;
     margin-right: 15px;
 }
 
-#groupInstructions > .row[current]{ background: #5c9899 !important; }
-#groupInstructions > .row[return] { margin-bottom: 10px; }
+#groupInstructions  .row[current]{ background: #5c9899 !important; }
+#groupInstructions  .row[return] { margin-bottom: 10px; }
 
-#groupInstructions > .row:hover{ background: #323131; }
+#groupInstructions  .row:hover{ background: #323131; }
 
-#groupInstructions > .row:hover > .info > .current,
-#groupInstructions > .row:hover > .info > .breakpoint {
+#groupInstructions  .row:hover > .info > .current,
+#groupInstructions  .row:hover > .info > .breakpoint {
 	opacity:1;
 	color: #544e47;
 }
 
 
-#groupInstructions > .row > .info{
+#groupInstructions  .row > .info{
     display: inline-block;
     width: 30px;
 }
 
-#groupInstructions > .row > .info > .breakpoint{
+#groupInstructions  .row > .info > .breakpoint{
     opacity:0;
     padding-left:3px;
     padding-right: 3px;
     cursor:pointer;
 }
-#groupInstructions > .row > .info > .breakpoint:hover{
+#groupInstructions  .row > .info > .breakpoint:hover{
 	opacity:1;
 	color:white;
 }
-#groupInstructions > .row[breakpoint] > .info > .breakpoint{
+#groupInstructions  .row[breakpoint] > .info > .breakpoint{
 	opacity:1;
     color: #c03a3a !important;
 }
 
-#groupInstructions > .row > .info > .current {
+#groupInstructions  .row > .info > .current {
     opacity:0;
     float: right;
     padding-right: 5px;
 	cursor:pointer;
 }
-#groupInstructions > .row > .info >.current:hover{
+#groupInstructions  .row > .info >.current:hover{
 	opacity:1;
 	color:white;
 }
-#groupInstructions > .row[current] > .info > .current{
+#groupInstructions  .row[current] > .info > .current{
 	opacity:1;
     color:white !important;
 }
 
 
 
-#groupInstructions >.row > .offset {
+#groupInstructions .row > .offset {
     margin-right: 15px;
     margin-left: 5px;
     color: #5f5f5f;
 }
 
-#groupInstructions > .row > .opcode {
+#groupInstructions  .row > .opcode {
     color: cadetblue;
     margin-right: 7px;
 }
 
-#groupInstructions > .row > .nemonic {
+#groupInstructions  .row > .nemonic {
     color: #3b696a;
 }
 
 #control{
 	grid-column: 2;
     grid-row: 2;
+}
+
+
+#groupMemoryMap #memoryMapSizeLabelStart{
+	display: inline-block;
+    height: 20px;
+    border-left: 1px solid #4e4e4e;
+    padding-left: 5px;
+    margin: 0;
+}
+
+#groupMemoryMap #memoryMapSizeLabelEnd{
+	display: inline-block;
+    height: 20px;
+    border-right: 1px solid #4e4e4e;
+    padding-right: 5px;
+    margin: 0;
+    margin-right: 10px;
+    position: relative;
+    float: right;
+}
+
+#memoryMap{
+    border: 1px solid #515151;
+    height: 40px;
+    width: 98%;
+    position: relative;
+}
+
+#memoryMap > div{
+	width: 100px;
+    border-right: 1px solid #595959;
+    display: inline-block;
+    position: relative;
+    height: 100%;
 }

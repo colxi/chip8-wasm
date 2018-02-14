@@ -108,6 +108,8 @@ const Machine = {
 
         Machine.wasm._init();
         Machine.memoryDump();
+        const ps = new PerfectScrollbar( document.querySelectorAll("#groupInstructions [group-content]")[0] );
+        //const ps = new PerfectScrollbar( document.querySelectorAll("#memory_output );
         return true;
     },
 }
