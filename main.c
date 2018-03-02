@@ -1,4 +1,3 @@
-
 #include <stdint.h>
 #include <string.h>
 // #include <stdio.h>
@@ -9,17 +8,44 @@
 
 #define MEM_SIZE 4096 // Size of memory handled by the CHIP-8
 
+
 // Define the JavaScript method's signature that we're going to be calling.
-extern void _console(char* str);
+#define CONSOLE_LOG_MAXSIZE 1024
+
+
+extern void _console(int msg_ptr);
+
+char console_msg[ CONSOLE_LOG_MAXSIZE ];
+
+/**
+ * [console description]
+ * @param msg [description]
+ */
+void console( char* msg ){
+    int i = 0;
+    while(true){
+        if( msg[i] == '\0' || i == CONSOLE_LOG_MAXSIZE){
+             console_msg[i] = '\0';
+             break;
+        }
+        console_msg[i] = msg[i];
+        i++;
+    }
+    _console( (int) console_msg );
+    return;
+}
 
 
 // The Chip-8 language is capable of accessing up to 4KB (4,096 bytes) of RAM,
 // from location 0x000 (0) to 0xFFF (4095). The first 512 bytes, from 0x000b to
 // 0x1FF, are where the interpreter was located, should not be used by programs.
+
+
 uint8_t Memory[MEM_SIZE];
 
+uint8_t RomImage[MEM_SIZE - 0x0200];
 
-struct register_t {
+struct Register {
     // Chip-8 has 16 general purpose 8-bit registers, usually referred to as Vx,
     // where x is a hexadecimal digit (0 through F)
     uint8_t V[16];
@@ -47,7 +73,9 @@ struct register_t {
     // the interpreter shoud return to when finished with a subroutine.
     // Chip-8 allows  for up to 16 levels of nested subroutines.
     uint16_t Stack[16];
-};
+} Register;
+
+
 
 
 /*
@@ -113,66 +141,74 @@ uint8_t MemoryCharSprites[] = {
 
 
 
-struct register_t Register;
+uint8_t memoryCopy(void *dest, void *src, size_t n){
+   if(!dest||!src) return 0;
 
+   // Typecast src and dest addresses to (uint8_t *)
+   uint8_t *s = (uint8_t *)src;
+   uint8_t *d = (uint8_t *)dest;
 
-int loadRom(const char* file){
-   /*
-    FILE* fp = fopen(file, "rb");
-    if (fp == NULL) {
-        fprintf(stderr, "Cannot open ROM file.\n");
-        return false;
-    }
+   // Copy contents of s[] to d[]
+   while(n--) {*d++ = *s++;}
 
-    // Use the fseek/ftell/fseek trick to retrieve file size.
-    fseek(fp, 0, SEEK_END);
-    int length = ftell(fp);
-    fseek(fp, 0, SEEK_SET);
-
-    // Check the length of the rom. Must be as much 3584 bytes long, which
-    // is 4096 - 512. Since first 512 bytes of memory are reserved, program
-    // code can only allocate up to 3584 bytes. Must check for bounds in
-    // order to avoid buffer overflows.
-    if (length > 3584) {
-        fprintf(stderr, "ROM too large.\n");
-        return false;
-    }
-
-    // Everything is OK, read the ROM, and store it in Memory positionn 0x200
-    fread(Memory + 0x200, length, 1, fp);
-    fclose(fp);
-    */
-    return true;
+   return 1;
 }
 
-int getMemoryPointer(){ return ( int ) Memory; }
-int getMemorySize(){ return sizeof(Memory); }
+uint8_t memoryFill(void *dest, uint8_t val, size_t n){
+   if(!dest) return 0;
+
+   // Typecast  dest addresses to (uint8_t *)
+   uint8_t *d = (uint8_t *)dest;
+
+   // repeat value in d[]
+   while(n--) {*d++ = val;}
+
+   return 1;
+}
+
+
+uint64_t getRegisterPointer(){ return (  uint64_t ) &Register; }
+long getRomImagePointer(){ return (  long ) RomImage; }
+long getMemoryPointer(){ return (  long ) Memory; }
+long getMemorySize(){ return sizeof(Memory); }
+
 
 int clearRegisters(){
-    memset( &Register, 0x00, sizeof(struct register_t) );
+    console( "clearRegisters() : Clearing registers..." );
+    memoryFill( &Register, 0x00, sizeof(struct Register) );
     Register.PC = 0x200;
 
     return true;
 }
 
 int clearMemory(){
-    // memset( &Memory[0], 0x00, sizeof(Memory) );
-    int i = 0;
-    int mem_size = getMemorySize();
-    while(i<mem_size){
-        Memory[i] = 0;
-        i++;
-    }
+    console( "clearMemory() : Clearing memory..." );
+
+    memoryFill( Memory, 0x00, sizeof(Memory) );
     // The data should be stored in the interpreter area of Chip-8 memory (0x000 to 0x1FF)
-    memcpy( Memory , MemoryCharSprites, sizeof(MemoryCharSprites) );
+    memoryCopy( Memory , MemoryCharSprites, sizeof(MemoryCharSprites) );
+
     return true;
 }
 
-int init(int argc, char** argv){
-    //printf("stat!.\n");
-    _console(0);
+ int loadRom(){
+    console("loadRom() : Reseting machine..");
     clearRegisters();
     clearMemory();
+    console("loadRom() : Loading ROM...");
+    memoryCopy( Memory + 0x200 , RomImage, sizeof(RomImage) );
+
+    console("loadRom() : Reseting PC Register ( to position 0x0200 )...");
+    Register.PC = 0x200;
+    Register.SP = 0x00;
+    return 0;
+}
+
+int init(int argc, char** argv){
+
+
+    console( "Initiating..." );
+
 
     return true;
 }

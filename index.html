@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="lib/perfect-scrollbar/perfect-scrollbar.css">
-  <script src="chip8.js"></script>
+  <script src="main.js"></script>
   <script src="lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 </head>
 <body>
@@ -84,69 +84,69 @@
             <div id="groupRegisters">
                 <div group-content>
                     <div class="reg">
-                        <span id="reg_SP" class="regName">☰ SP</span><span>00</span>
+                        <span class="regName reg_SP" class="regName">☰ SP</span><span id="reg_SP">00</span>
                     </div>
                     <div class="reg">
-                        <span id="reg_PC" class="regName">➤ PC</span><span>00 00</span>
-                    </div>
-                    <div class="divider-group"></div>
-                    <div class="reg">
-                        <span class="regName">V0</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V1</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V2</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V3</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V4</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V5</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V6</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V7</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V8</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V9</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VA</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VB</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VC</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VD</span><span>00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VE</span><span>00</span>
+                        <span class="regName reg_PC" class="regName">➤ PC</span><span id="reg_PC">00 00</span>
                     </div>
                     <div class="divider-group"></div>
                     <div class="reg">
-                        <span class="regName">⛊ VF</span><span>00</span>
+                        <span class="regName">V0</span><span id="reg_v0">00</span>
                     </div>
                     <div class="reg">
-                        <span id="reg_DT" class="regName">⚆ DT</span><span>00</span>
+                        <span class="regName">V1</span><span id="reg_v1">00</span>
                     </div>
                     <div class="reg">
-                        <span class="regName">↷ I</span><span>0000</span>
+                        <span class="regName">V2</span><span id="reg_v2">00</span>
                     </div>
                     <div class="reg">
-                        <span id="reg_ST" class="regName">♪ ST</span><span>00</span>
+                        <span class="regName">V3</span><span id="reg_v3">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V4</span><span id="reg_v4">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V5</span><span id="reg_v5">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V6</span><span id="reg_v6">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V7</span><span id="reg_v7">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V8</span><span id="reg_v8">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V9</span><span id="reg_v9">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VA</span><span id="reg_vA">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VB</span><span id="reg_vB">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VC</span><span id="reg_vC">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VD</span><span id="reg_vD">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VE</span><span id="reg_vE">00</span>
+                    </div>
+                    <div class="divider-group"></div>
+                    <div class="reg">
+                        <span class="regName">⛊ VF</span><span id="reg_vF">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName reg_DT">⚆ DT</span><span id="reg_DT">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">↷ I</span><span id="reg_I">0000</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName reg_ST">♪ ST</span><span  id="reg_ST">00</span>
                     </div>
                 </div>
                 <div class="label-group"></div>
@@ -357,7 +357,6 @@
             <br>
             <br>
             <button type="button" onclick="Machine.loadROM()">Load Rom</button>
-            <button type="" onclick="Machine.memoryDump()">Memory Dump</button>
             <button type="">Reset Memory</button>
         </div>
     </div>
