@@ -2,7 +2,7 @@
 * @Author: colxi
 * @Date:   2018-02-06 18:11:53
 * @Last Modified by:   colxi
-* @Last Modified time: 2018-03-02 13:28:51
+* @Last Modified time: 2018-03-25 01:53:39
 */
 body{
 	background: #282828;
@@ -88,6 +88,11 @@ body *{ cursor: default;}
     font-size: 10px !important;
     position:relative;
 }
+#memory_output span:nth-child(n+1):nth-child(-n+80){ color:red !important;}
+#memory_output span:nth-child(n+81):nth-child(-n+336){ color:blue !important;}
+#memory_output span:nth-child(n+337):nth-child(-n+368){ color:green !important;}
+#memory_output span:nth-child(n+369):nth-child(-n+384){ color:orange !important;}
+#memory_output span:nth-child(n+513){ color:cadetblue !important;}
 
 #groupStack{
 	position: relative;
@@ -114,8 +119,8 @@ body *{ cursor: default;}
 }
 
 .stack-slot[current]{
-    border: 1px solid #fa652e;
-    background: #fa652e;
+    border: 1px solid #fa652e !important;
+    background: #fa652e !important;
     color:white;
     border-radius: 5px 0;
 
@@ -186,45 +191,39 @@ body *{ cursor: default;}
 
 #groupInstructions  .row:hover{ background: #323131; }
 
-#groupInstructions  .row:hover > .info > .current,
-#groupInstructions  .row:hover > .info > .breakpoint {
-	opacity:1;
-	color: #544e47;
-}
-
-
 #groupInstructions  .row > .info{
     display: inline-block;
     width: 30px;
 }
 
+#groupInstructions  .row > .info > *{
+    visibility: hidden;
+    color: #544e47;
+}
+#groupInstructions  .row:hover > .info > *{ visibility: visible;}
+
+
 #groupInstructions  .row > .info > .breakpoint{
-    opacity:0;
     padding-left:3px;
     padding-right: 3px;
     cursor:pointer;
 }
-#groupInstructions  .row > .info > .breakpoint:hover{
-	opacity:1;
-	color:white;
-}
+#groupInstructions  .row > .info > .breakpoint:hover{ color:white; }
+
 #groupInstructions  .row[breakpoint] > .info > .breakpoint{
-	opacity:1;
+    visibility: visible;
     color: #c03a3a !important;
 }
 
 #groupInstructions  .row > .info > .current {
-    opacity:0;
     float: right;
     padding-right: 5px;
-	cursor:pointer;
+    cursor:pointer;
 }
-#groupInstructions  .row > .info >.current:hover{
-	opacity:1;
-	color:white;
-}
+#groupInstructions  .row > .info >.current:hover{ color:white; }
+
 #groupInstructions  .row[current] > .info > .current{
-	opacity:1;
+    visibility: visible;
     color:white !important;
 }
 
@@ -240,6 +239,7 @@ body *{ cursor: default;}
     color: cadetblue;
     margin-right: 7px;
 }
+#groupInstructions  .row[current] > .opcode{ color:white !important; }
 
 #groupInstructions  .row > .nemonic {
     color: #3b696a;

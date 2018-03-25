@@ -1454,9 +1454,9 @@ function integrateWasmJS() {
 
   var method = 'native-wasm';
 
-  var wasmTextFile = 'main.wast';
-  var wasmBinaryFile = 'main.wasm';
-  var asmjsCodeFile = 'main.temp.asm.js';
+  var wasmTextFile = 'chip8.wast';
+  var wasmBinaryFile = 'chip8.wasm';
+  var asmjsCodeFile = 'chip8.temp.asm.js';
 
   if (typeof Module['locateFile'] === 'function') {
     if (!isDataURI(wasmTextFile)) {
@@ -1721,17 +1721,25 @@ integrateWasmJS();
 
 // === Body ===
 
-var ASM_CONSTS = [function($0) { console.log("elapsed useconds:", $0); }];
+var ASM_CONSTS = [function() { console.log("[wasm] clearRegisters() : Clearing registers..."); },
+ function() { console.log("[wasm] clearMemory() : Clearing memory..."); },
+ function($0, $1) { console.log("[wasm] Unknown instruction:", $0, $1); },
+ function() { console.log("[wasm] Execution Interrupted."); },
+ function() { console.log("[wasm] main() : Initiatiin completed. System Ready!"); }];
 
-function _emscripten_asm_const_ij(code, a0) {
-  return ASM_CONSTS[code](a0);
+function _emscripten_asm_const_i(code) {
+  return ASM_CONSTS[code]();
+}
+
+function _emscripten_asm_const_iii(code, a0, a1) {
+  return ASM_CONSTS[code](a0, a1);
 }
 
 
 
 STATIC_BASE = GLOBAL_BASE;
 
-STATICTOP = STATIC_BASE + 11840;
+STATICTOP = STATIC_BASE + 18992;
 /* global initializers */  __ATINIT__.push();
 
 
@@ -1740,7 +1748,7 @@ STATICTOP = STATIC_BASE + 11840;
 
 
 
-var STATIC_BUMP = 11840;
+var STATIC_BUMP = 18992;
 Module["STATIC_BASE"] = STATIC_BASE;
 Module["STATIC_BUMP"] = STATIC_BUMP;
 
@@ -1884,10 +1892,6 @@ function copyTempDouble(ptr) {
   }
 
   function ___unlock() {}
-
-  function __console() {
-  Module['printErr']('missing function: _console'); abort(-1);
-  }
 
   
   var ___async_cur_frame=0; 
@@ -2793,7 +2797,7 @@ function invoke_vi(index,a1) {
 
 Module.asmGlobalArg = {};
 
-Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "abortStackOverflow": abortStackOverflow, "nullFunc_ii": nullFunc_ii, "nullFunc_iiii": nullFunc_iiii, "nullFunc_vi": nullFunc_vi, "invoke_ii": invoke_ii, "invoke_iiii": invoke_iiii, "invoke_vi": invoke_vi, "___lock": ___lock, "___setErrNo": ___setErrNo, "___syscall140": ___syscall140, "___syscall146": ___syscall146, "___syscall54": ___syscall54, "___syscall6": ___syscall6, "___unlock": ___unlock, "__console": __console, "_emscripten_asm_const_ij": _emscripten_asm_const_ij, "_emscripten_get_now": _emscripten_get_now, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_emscripten_set_main_loop": _emscripten_set_main_loop, "_emscripten_set_main_loop_timing": _emscripten_set_main_loop_timing, "_emscripten_sleep": _emscripten_sleep, "_gettimeofday": _gettimeofday, "flush_NO_FILESYSTEM": flush_NO_FILESYSTEM, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "ABORT": ABORT, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX, "___async": ___async, "___async_unwind": ___async_unwind, "___async_retval": ___async_retval, "___async_cur_frame": ___async_cur_frame };
+Module.asmLibraryArg = { "abort": abort, "assert": assert, "enlargeMemory": enlargeMemory, "getTotalMemory": getTotalMemory, "abortOnCannotGrowMemory": abortOnCannotGrowMemory, "abortStackOverflow": abortStackOverflow, "nullFunc_ii": nullFunc_ii, "nullFunc_iiii": nullFunc_iiii, "nullFunc_vi": nullFunc_vi, "invoke_ii": invoke_ii, "invoke_iiii": invoke_iiii, "invoke_vi": invoke_vi, "___lock": ___lock, "___setErrNo": ___setErrNo, "___syscall140": ___syscall140, "___syscall146": ___syscall146, "___syscall54": ___syscall54, "___syscall6": ___syscall6, "___unlock": ___unlock, "_emscripten_asm_const_i": _emscripten_asm_const_i, "_emscripten_asm_const_iii": _emscripten_asm_const_iii, "_emscripten_get_now": _emscripten_get_now, "_emscripten_memcpy_big": _emscripten_memcpy_big, "_emscripten_set_main_loop": _emscripten_set_main_loop, "_emscripten_set_main_loop_timing": _emscripten_set_main_loop_timing, "_emscripten_sleep": _emscripten_sleep, "_gettimeofday": _gettimeofday, "flush_NO_FILESYSTEM": flush_NO_FILESYSTEM, "DYNAMICTOP_PTR": DYNAMICTOP_PTR, "tempDoublePtr": tempDoublePtr, "ABORT": ABORT, "STACKTOP": STACKTOP, "STACK_MAX": STACK_MAX, "___async": ___async, "___async_unwind": ___async_unwind, "___async_retval": ___async_retval, "___async_cur_frame": ___async_cur_frame };
 // EMSCRIPTEN_START_ASM
 var asm =Module["asm"]// EMSCRIPTEN_END_ASM
 (Module.asmGlobalArg, Module.asmLibraryArg, buffer);
@@ -2802,18 +2806,6 @@ var real____errno_location = asm["___errno_location"]; asm["___errno_location"] 
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return real____errno_location.apply(null, arguments);
-};
-
-var real__clearMemory = asm["_clearMemory"]; asm["_clearMemory"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return real__clearMemory.apply(null, arguments);
-};
-
-var real__clearRegisters = asm["_clearRegisters"]; asm["_clearRegisters"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return real__clearRegisters.apply(null, arguments);
 };
 
 var real__emscripten_alloc_async_context = asm["_emscripten_alloc_async_context"]; asm["_emscripten_alloc_async_context"] = function() {
@@ -2840,6 +2832,36 @@ var real__emscripten_realloc_async_context = asm["_emscripten_realloc_async_cont
   return real__emscripten_realloc_async_context.apply(null, arguments);
 };
 
+var real__emulationInit = asm["_emulationInit"]; asm["_emulationInit"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return real__emulationInit.apply(null, arguments);
+};
+
+var real__emulationPause = asm["_emulationPause"]; asm["_emulationPause"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return real__emulationPause.apply(null, arguments);
+};
+
+var real__emulationReset = asm["_emulationReset"]; asm["_emulationReset"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return real__emulationReset.apply(null, arguments);
+};
+
+var real__emulationResume = asm["_emulationResume"]; asm["_emulationResume"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return real__emulationResume.apply(null, arguments);
+};
+
+var real__emulationStep = asm["_emulationStep"]; asm["_emulationStep"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return real__emulationStep.apply(null, arguments);
+};
+
 var real__fflush = asm["_fflush"]; asm["_fflush"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
@@ -2850,6 +2872,18 @@ var real__free = asm["_free"]; asm["_free"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return real__free.apply(null, arguments);
+};
+
+var real__getCanvasPointer = asm["_getCanvasPointer"]; asm["_getCanvasPointer"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return real__getCanvasPointer.apply(null, arguments);
+};
+
+var real__getHaltOnError = asm["_getHaltOnError"]; asm["_getHaltOnError"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return real__getHaltOnError.apply(null, arguments);
 };
 
 var real__getMemoryPointer = asm["_getMemoryPointer"]; asm["_getMemoryPointer"] = function() {
@@ -2882,22 +2916,10 @@ var real__getStackPointer = asm["_getStackPointer"]; asm["_getStackPointer"] = f
   return real__getStackPointer.apply(null, arguments);
 };
 
-var real__init = asm["_init"]; asm["_init"] = function() {
+var real__getStatusPointer = asm["_getStatusPointer"]; asm["_getStatusPointer"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return real__init.apply(null, arguments);
-};
-
-var real__loadRom = asm["_loadRom"]; asm["_loadRom"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return real__loadRom.apply(null, arguments);
-};
-
-var real__loop = asm["_loop"]; asm["_loop"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return real__loop.apply(null, arguments);
+  return real__getStatusPointer.apply(null, arguments);
 };
 
 var real__main = asm["_main"]; asm["_main"] = function() {
@@ -2912,34 +2934,28 @@ var real__malloc = asm["_malloc"]; asm["_malloc"] = function() {
   return real__malloc.apply(null, arguments);
 };
 
-var real__pauseExecution = asm["_pauseExecution"]; asm["_pauseExecution"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return real__pauseExecution.apply(null, arguments);
-};
-
-var real__resumeExecution = asm["_resumeExecution"]; asm["_resumeExecution"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return real__resumeExecution.apply(null, arguments);
-};
-
 var real__sbrk = asm["_sbrk"]; asm["_sbrk"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return real__sbrk.apply(null, arguments);
 };
 
-var real__step = asm["_step"]; asm["_step"] = function() {
+var real__setHaltOnError = asm["_setHaltOnError"]; asm["_setHaltOnError"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return real__step.apply(null, arguments);
+  return real__setHaltOnError.apply(null, arguments);
 };
 
-var real__stepExecution = asm["_stepExecution"]; asm["_stepExecution"] = function() {
+var real__setPixel = asm["_setPixel"]; asm["_setPixel"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return real__stepExecution.apply(null, arguments);
+  return real__setPixel.apply(null, arguments);
+};
+
+var real__updateScreenMemory = asm["_updateScreenMemory"]; asm["_updateScreenMemory"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return real__updateScreenMemory.apply(null, arguments);
 };
 
 var real_establishStackSpace = asm["establishStackSpace"]; asm["establishStackSpace"] = function() {
@@ -2994,14 +3010,6 @@ var ___errno_location = Module["___errno_location"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["___errno_location"].apply(null, arguments) };
-var _clearMemory = Module["_clearMemory"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["_clearMemory"].apply(null, arguments) };
-var _clearRegisters = Module["_clearRegisters"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["_clearRegisters"].apply(null, arguments) };
 var _emscripten_alloc_async_context = Module["_emscripten_alloc_async_context"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
@@ -3018,6 +3026,26 @@ var _emscripten_realloc_async_context = Module["_emscripten_realloc_async_contex
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["_emscripten_realloc_async_context"].apply(null, arguments) };
+var _emulationInit = Module["_emulationInit"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["_emulationInit"].apply(null, arguments) };
+var _emulationPause = Module["_emulationPause"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["_emulationPause"].apply(null, arguments) };
+var _emulationReset = Module["_emulationReset"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["_emulationReset"].apply(null, arguments) };
+var _emulationResume = Module["_emulationResume"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["_emulationResume"].apply(null, arguments) };
+var _emulationStep = Module["_emulationStep"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["_emulationStep"].apply(null, arguments) };
 var _fflush = Module["_fflush"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
@@ -3026,6 +3054,14 @@ var _free = Module["_free"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["_free"].apply(null, arguments) };
+var _getCanvasPointer = Module["_getCanvasPointer"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["_getCanvasPointer"].apply(null, arguments) };
+var _getHaltOnError = Module["_getHaltOnError"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["_getHaltOnError"].apply(null, arguments) };
 var _getMemoryPointer = Module["_getMemoryPointer"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
@@ -3046,18 +3082,10 @@ var _getStackPointer = Module["_getStackPointer"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["_getStackPointer"].apply(null, arguments) };
-var _init = Module["_init"] = function() {
+var _getStatusPointer = Module["_getStatusPointer"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["_init"].apply(null, arguments) };
-var _loadRom = Module["_loadRom"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["_loadRom"].apply(null, arguments) };
-var _loop = Module["_loop"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["_loop"].apply(null, arguments) };
+  return Module["asm"]["_getStatusPointer"].apply(null, arguments) };
 var _main = Module["_main"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
@@ -3074,26 +3102,22 @@ var _memset = Module["_memset"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["_memset"].apply(null, arguments) };
-var _pauseExecution = Module["_pauseExecution"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["_pauseExecution"].apply(null, arguments) };
-var _resumeExecution = Module["_resumeExecution"] = function() {
-  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
-  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["_resumeExecution"].apply(null, arguments) };
 var _sbrk = Module["_sbrk"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["_sbrk"].apply(null, arguments) };
-var _step = Module["_step"] = function() {
+var _setHaltOnError = Module["_setHaltOnError"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["_step"].apply(null, arguments) };
-var _stepExecution = Module["_stepExecution"] = function() {
+  return Module["asm"]["_setHaltOnError"].apply(null, arguments) };
+var _setPixel = Module["_setPixel"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
-  return Module["asm"]["_stepExecution"].apply(null, arguments) };
+  return Module["asm"]["_setPixel"].apply(null, arguments) };
+var _updateScreenMemory = Module["_updateScreenMemory"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["_updateScreenMemory"].apply(null, arguments) };
 var establishStackSpace = Module["establishStackSpace"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');

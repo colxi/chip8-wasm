@@ -3,81 +3,81 @@
 <head>
   <title></title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="lib/perfect-scrollbar/perfect-scrollbar.css">
   <script src="chip8.js"></script>
-  <script src="main.js"></script>
+  <script src="gui.js"></script>
   <script src="lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 </head>
 <body>
     <div id="grid-wrapper">
-        <canvas id="display"></canvas>
+        <canvas id="display" width="64" height="32"></canvas>
         <div id="groupInspector">
             <div id="groupStack">
                 <div group-content>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_0" class="stack-slot" disabled>00 00</div>
+                        <span class="stackOffset">0F - </span>
+                        <div id="stack_0F" class="stack-slot" disabled>00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_1" class="stack-slot" disabled>00 00</div>
+                        <span class="stackOffset">0E - </span>
+                        <div id="stack_0E" class="stack-slot" disabled>00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_2" class="stack-slot" disabled>00 00</div>
+                        <span class="stackOffset">0D - </span>
+                        <div id="stack_0D" class="stack-slot" disabled>00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_3" class="stack-slot" disabled>00 00</div>
+                        <span class="stackOffset">0C - </span>
+                        <div id="stack_0C" class="stack-slot" disabled>00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_4" class="stack-slot" disabled>00 00</div>
+                        <span class="stackOffset">0B - </span>
+                        <div id="stack_0B" class="stack-slot" disabled>00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_5" class="stack-slot" current>00 00</div>
+                        <span class="stackOffset">0A - </span>
+                        <div id="stack_0A" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_6" class="stack-slot">00 00</div>
+                        <span class="stackOffset">09 - </span>
+                        <div id="stack_09" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_7" class="stack-slot">00 00</div>
+                        <span class="stackOffset">08 - </span>
+                        <div id="stack_08" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_8" class="stack-slot">00 00</div>
+                        <span class="stackOffset">07 - </span>
+                        <div id="stack_07" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_9" class="stack-slot">00 00</div>
+                        <span class="stackOffset">06 - </span>
+                        <div id="stack_06" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_10" class="stack-slot">00 00</div>
+                        <span class="stackOffset">05 - </span>
+                        <div id="stack_05" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_11" class="stack-slot">00 00</div>
+                        <span class="stackOffset">04 - </span>
+                        <div id="stack_04" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_12" class="stack-slot">00 00</div>
+                        <span class="stackOffset">03 - </span>
+                        <div id="stack_03" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_13" class="stack-slot">00 00</div>
+                        <span class="stackOffset">02 - </span>
+                        <div id="stack_02" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_14" class="stack-slot">00 00</div>
+                        <span class="stackOffset">01 - </span>
+                        <div id="stack_01" class="stack-slot">00 00</div>
                     </div>
                     <div>
-                        <span>0F - </span>
-                        <div id="stack_15" class="stack-slot">00 00</div>
+                        <span class="stackOffset">00 - </span>
+                        <div id="stack_00" class="stack-slot">00 00</div>
                     </div>
                 </div>
                 <div class="label-group"></div>
@@ -85,69 +85,69 @@
             <div id="groupRegisters">
                 <div group-content>
                     <div class="reg">
-                        <span class="regName reg_SP" class="regName">☰ SP</span><span id="reg_SP">00</span>
+                        <span class="regName reg_SP" class="regName">☰ SP</span><span id="reg_SP" onclick="app.setRegistry('SP')">00</span>
                     </div>
                     <div class="reg">
-                        <span class="regName reg_PC" class="regName">➤ PC</span><span id="reg_PC">00 00</span>
-                    </div>
-                    <div class="divider-group"></div>
-                    <div class="reg">
-                        <span class="regName">V0</span><span id="reg_V0">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V1</span><span id="reg_V1">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V2</span><span id="reg_V2">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V3</span><span id="reg_V3">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V4</span><span id="reg_V4">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V5</span><span id="reg_V5">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V6</span><span id="reg_V6">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V7</span><span id="reg_V7">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V8</span><span id="reg_V8">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">V9</span><span id="reg_V9">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VA</span><span id="reg_VA">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VB</span><span id="reg_VB">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VC</span><span id="reg_VC">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VD</span><span id="reg_VD">00</span>
-                    </div>
-                    <div class="reg">
-                        <span class="regName">VE</span><span id="reg_VE">00</span>
+                        <span class="regName reg_PC" class="regName">➤ PC</span><span id="reg_PC" onclick="app.setRegistry('PC')">00 00</span>
                     </div>
                     <div class="divider-group"></div>
                     <div class="reg">
-                        <span class="regName">⛊ VF</span><span id="reg_VF">00</span>
+                        <span class="regName">V0</span><span id="reg_V0" onclick="app.setRegistry('V0')">00</span>
                     </div>
                     <div class="reg">
-                        <span class="regName reg_DT">⚆ DT</span><span id="reg_DT">00</span>
+                        <span class="regName">V1</span><span id="reg_V1" onclick="app.setRegistry('V1')">00</span>
                     </div>
                     <div class="reg">
-                        <span class="regName">↷ I</span><span id="reg_I">0000</span>
+                        <span class="regName">V2</span><span id="reg_V2" onclick="app.setRegistry('V2')">00</span>
                     </div>
                     <div class="reg">
-                        <span class="regName reg_ST">♪ ST</span><span  id="reg_ST">00</span>
+                        <span class="regName">V3</span><span id="reg_V3" onclick="app.setRegistry('V3')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V4</span><span id="reg_V4" onclick="app.setRegistry('V4')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V5</span><span id="reg_V5" onclick="app.setRegistry('V5')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V6</span><span id="reg_V6" onclick="app.setRegistry('V6')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V7</span><span id="reg_V7" onclick="app.setRegistry('V7')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V8</span><span id="reg_V8" onclick="app.setRegistry('V8')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">V9</span><span id="reg_V9" onclick="app.setRegistry('V9')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VA</span><span id="reg_VA" onclick="app.setRegistry('VA')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VB</span><span id="reg_VB" onclick="app.setRegistry('VB')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VC</span><span id="reg_VC" onclick="app.setRegistry('VC')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VD</span><span id="reg_VD" onclick="app.setRegistry('VD')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">VE</span><span id="reg_VE" onclick="app.setRegistry('VE')">00</span>
+                    </div>
+                    <div class="divider-group"></div>
+                    <div class="reg">
+                        <span class="regName">⛊ VF</span><span id="reg_VF" onclick="app.setRegistry('VF')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName reg_DT">⚆ DT</span><span id="reg_DT" onclick="app.setRegistry('DT')">00</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName">↷ I</span><span id="reg_I" onclick="app.setRegistry('VI')">0000</span>
+                    </div>
+                    <div class="reg">
+                        <span class="regName reg_ST">♪ ST</span><span id="reg_ST" onclick="app.setRegistry('ST')">00</span>
                     </div>
                 </div>
                 <div class="label-group"></div>
@@ -342,20 +342,40 @@
 
             <br>
             <br>
-            <select>
+            <select id="romFile">
                 <option>PONG</option>
-                <option>PONG</option>
-                <option>PONG</option>
-                <option>PONG</option>
-                <option>PONG</option>
-                <option>PONG</option>
+                <option>15PUZZLE</option>
+                <option>BLINKY</option>
+                <option>BLITZ</option>
+                <option>BRIX</option>
+                <option>CONNECT4</option>
+                <option>GUESS</option>
+                <option>HIDDEN</option>
+                <option>INVADERS</option>
+                <option>KALEID</option>
+                <option>MAZE</option>
+                <option>MERLIN</option>
+                <option>MISSILE</option>
+                <option>PONG2</option>
+                <option>PUZZLE</option>
+                <option>SYZYGY</option>
+                <option>TANK</option>
+                <option>TETRIS</option>
+                <option>TICTAC</option>
+                <option>UFO</option>
+                <option>VBRIX</option>
+                <option>VERS</option>
+                <option>WIPEOFF</option>
+                <option>_PONG</option>
             </select>
             <button type="button" onclick="app.loadROM()">Load ROM</button>
             <button type="button" onclick="">Load Custom ROM...</button>
             <button type="button" onclick="">Save ROM</button>
-            <button type="button" onclick="app.wasm._resumeExecution()">Start</button>
-            <button type="button" onclick="app.wasm._pauseExecution()">Pause</button>
-            <button type="button" onclick="app.step()">step</button>
+            <button type="button" onclick="app.emulationResume()">Play</button>
+            <button type="button" onclick="app.emulationPause()">Pause</button>
+            <button type="button" onclick="app.emulationStep()">Step</button>
+            <button type="button" onclick="app.emulationReset()">Reset</button>
+            <button type="button" onclick="app.memoryDump()">Dump</button>
         </div>
         <div id="control">
             <div id="groupMemoryMap">
