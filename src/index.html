@@ -343,39 +343,40 @@
             <br>
             <br>
             <select id="romFile">
-                <option>PONG</option>
-                <option>15PUZZLE</option>
-                <option>BLINKY</option>
-                <option>BLITZ</option>
-                <option>BRIX</option>
-                <option>CONNECT4</option>
-                <option>GUESS</option>
-                <option>HIDDEN</option>
-                <option>INVADERS</option>
-                <option>KALEID</option>
-                <option>MAZE</option>
-                <option>MERLIN</option>
+                <option disabled selected>-- Select --</option>
+                <option>TETRIS</option>
+                <option>WIPEOFF</option>
+                <option>UFO</option>
+                <option>TICTAC</option>
                 <option>MISSILE</option>
                 <option>PONG2</option>
-                <option>PUZZLE</option>
-                <option>SYZYGY</option>
-                <option>TANK</option>
-                <option>TETRIS</option>
-                <option>TICTAC</option>
-                <option>UFO</option>
-                <option>VBRIX</option>
-                <option>VERS</option>
-                <option>WIPEOFF</option>
-                <option>_PONG</option>
+                <option disabled>PONG</option>
+                <option disabled>15PUZZLE</option>
+                <option disabled>BLINKY</option>
+                <option disabled>BLITZ</option>
+                <optionn disabled></optionn>BRIX</option>
+                <option disabled></optionn>CONNECT4</option>
+                <option disabled></optionn>GUESS</option>
+                <option disabled></optionn>HIDDEN</option>
+                <option disabled></optionn>INVADERS</option>
+                <option disabled></optionn>KALEID</option>
+                <option disabled></optionn>MAZE</option>
+                <option disabled></optionn>MERLIN</option>
+                <option disabled></optionn>PUZZLE</option>
+                <option disabled></optionn>SYZYGY</option>
+                <option disabled></optionn>TANK</option>
+                <option disabled></optionn>VBRIX</option>
+                <option disabled></optionn>VERS</option>
+                <option disabled>_PONG</option>
             </select>
             <button type="button" onclick="app.loadROM()">Load ROM</button>
-            <button type="button" onclick="">Load Custom ROM...</button>
-            <button type="button" onclick="">Save ROM</button>
+            <button type="button" onclick="" hidden>Load Custom ROM...</button>
+            <button type="button" onclick="" hidden>Save ROM</button>
             <button type="button" onclick="app.emulationResume()">Play</button>
             <button type="button" onclick="app.emulationPause()">Pause</button>
             <button type="button" onclick="app.emulationStep()">Step</button>
             <button type="button" onclick="app.emulationReset()">Reset</button>
-            <button type="button" onclick="app.memoryDump()">Dump</button>
+            <button type="button" onclick="app.memoryDump()" hidden>Dump</button>
         </div>
         <div id="control">
             <div id="groupMemoryMap">

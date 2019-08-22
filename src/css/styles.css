@@ -4,287 +4,321 @@
 * @Last Modified by:   colxi
 * @Last Modified time: 2018-03-25 01:53:39
 */
-body{
-	background: #282828;
-    color: #777777;
-    font-family: cursive;
-    font-size: 10px;
-    top: 0px;
-    position: absolute;
-    bottom: 0px;
-    user-select: none;
+body {
+  background: #282828;
+  color: #777777;
+  font-family: cursive;
+  font-size: 10px;
+  top: 0px;
+  position: absolute;
+  bottom: 0px;
+  user-select: none;
 }
 
-body *{ cursor: default;}
+body * {
+  cursor: default;
+}
 
-.ps .ps__rail-x:hover, .ps .ps__rail-y:hover, .ps .ps__rail-x:focus,
-.ps .ps__rail-y:focus, .ps .ps__rail-x.ps--clicking, .ps .ps__rail-y.ps--clicking{
-	background-color: transparent !important;
+.ps .ps__rail-x:hover,
+.ps .ps__rail-y:hover,
+.ps .ps__rail-x:focus,
+.ps .ps__rail-y:focus,
+.ps .ps__rail-x.ps--clicking,
+.ps .ps__rail-y.ps--clicking {
+  background-color: transparent !important;
 }
 
 .ps__rail-y:hover > .ps__thumb-y,
 .ps__rail-y:focus > .ps__thumb-y,
-.ps__rail-y.ps--clicking .ps__thumb-y{
-	width: 6px !important;
+.ps__rail-y.ps--clicking .ps__thumb-y {
+  width: 6px !important;
 }
 
-.label-group{
-	position: absolute;
-    top: 1px;
-    bottom: 12px;
-    right: -8px;
-    width: 4px;
-    border-top: 1px solid;
-    border-right: 1px solid;
-    border-bottom: 1px solid;
-    border-color: #3f3f3f;
+.label-group {
+  position: absolute;
+  top: 1px;
+  bottom: 12px;
+  right: -8px;
+  width: 4px;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #3f3f3f;
 }
 
-.label-group:after{
-	content: "STACK";
-    display: block;
-    transform: rotate(-90deg);
-    position: relative;
-    top: 45%;
-    background-color: #282828;
-    width: 37px;
-    left: -15px;
+.label-group:after {
+  content: "STACK";
+  display: block;
+  transform: rotate(-90deg);
+  position: relative;
+  top: 45%;
+  background-color: #282828;
+  width: 37px;
+  left: -15px;
 }
 .divider-group {
-    border-bottom: 1px solid #3e3e3e;
-    margin-bottom: 12px;
-    margin-top: 8px;
+  border-bottom: 1px solid #3e3e3e;
+  margin-bottom: 12px;
+  margin-top: 8px;
 }
 
-#grid-wrapper{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
-    position: relative;
-    height: 100%;
-    max-width: 1240px;
+#grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  position: relative;
+  height: 100%;
+  max-width: 1240px;
 }
-#groupInspector{
-	display: grid;
-    grid-template-columns: 120px 190px 250px;
-    grid-gap: 15px;
-    grid-column: 2;
-    grid-row: 1;
-}
-
-#display{
-    width: 64px;
-    height: 32px;
-    zoom:10;
-    background: black;
-    grid-column: 1;
-    grid-row: 1;
+#groupInspector {
+  display: grid;
+  grid-template-columns: 120px 190px 250px;
+  grid-gap: 15px;
+  grid-column: 2;
+  grid-row: 1;
 }
 
-#memory_output{
-    font-family: monospace;
-    overflow-x: auto;
-    white-space: pre-wrap;
-    font-size: 10px !important;
-    position:relative;
+#display {
+  width: 64px;
+  height: 32px;
+  zoom: 10;
+  background: black;
+  grid-column: 1;
+  grid-row: 1;
+  image-rendering: pixelated;
 }
-#memory_output span:nth-child(n+1):nth-child(-n+80){ color:red !important;}
-#memory_output span:nth-child(n+81):nth-child(-n+336){ color:blue !important;}
-#memory_output span:nth-child(n+337):nth-child(-n+368){ color:green !important;}
-#memory_output span:nth-child(n+369):nth-child(-n+384){ color:orange !important;}
-#memory_output span:nth-child(n+513){ color:cadetblue !important;}
 
-#groupStack{
-	position: relative;
-	grid-column: 1;
-    grid-row: 1;
-    padding: 5px;
-    margin-right: 15px;
-    padding-right: 10px;
-    padding-left: 10px;
+#memory_output {
+  font-family: monospace;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  font-size: 10px !important;
+  position: relative;
+}
+#memory_output span:nth-child(n + 1):nth-child(-n + 80) {
+  color: red !important;
+}
+#memory_output span:nth-child(n + 81):nth-child(-n + 336) {
+  color: blue !important;
+}
+#memory_output span:nth-child(n + 337):nth-child(-n + 368) {
+  color: green !important;
+}
+#memory_output span:nth-child(n + 369):nth-child(-n + 384) {
+  color: orange !important;
+}
+#memory_output span:nth-child(n + 513) {
+  color: cadetblue !important;
+}
+
+#groupStack {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+  padding: 5px;
+  margin-right: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .stack-slot {
-    margin-bottom: 3px;
-    text-align: center;
-    background: #3d3d3d61;
-    height: 15px;
-    border: 1px solid transparent;
-    display: inline-block;
-    width: 50px;
+  margin-bottom: 3px;
+  text-align: center;
+  background: #3d3d3d61;
+  height: 15px;
+  border: 1px solid transparent;
+  display: inline-block;
+  width: 50px;
 }
 
 #groupStack [group-content] > div:nth-child(odd) .stack-slot {
-    background: transparent;
+  background: transparent;
 }
 
-.stack-slot[current]{
-    border: 1px solid #fa652e !important;
-    background: #fa652e !important;
-    color:white;
-    border-radius: 5px 0;
-
+.stack-slot[current] {
+  border: 1px solid #fa652e !important;
+  background: #fa652e !important;
+  color: white;
+  border-radius: 5px 0;
 }
 
 .stack-slot[disabled] {
-    opacity: .3;
+  opacity: 0.3;
 }
 
-#groupRegisters{
-	position: relative;
-	grid-column: 2;
-    grid-row: 1;
-    margin-right: 15px;
+#groupRegisters {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  margin-right: 15px;
 }
 
 .regName {
-    background: #FF9800;
-    border-radius: 5px 0;
-    padding: 2px;
-    width: 30px;
-    display: inline-block;
-    text-align: center;
-    color: white;
-    margin: 3px;
-    font-size: 9px;
-    margin-right: 7px;
+  background: #ff9800;
+  border-radius: 5px 0;
+  padding: 2px;
+  width: 30px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  margin: 3px;
+  font-size: 9px;
+  margin-right: 7px;
 }
 .reg {
-    display: inline-block;
-    white-space: normal;
-    width: 85px;
-    margin-bottom: 3px;
+  display: inline-block;
+  white-space: normal;
+  width: 85px;
+  margin-bottom: 3px;
 }
-.reg_SP{ background:#fa652e;}
+.reg_SP {
+  background: #fa652e;
+}
 
-.reg_PC{ background: cadetblue;}
+.reg_PC {
+  background: cadetblue;
+}
 
-.reg_I{ background: #7a7a0f;}
+.reg_I {
+  background: #7a7a0f;
+}
 
-.reg_DT{ background: #c2ac12; }
+.reg_DT {
+  background: #c2ac12;
+}
 
-.reg_ST{ background: #c2ac12; }
-
-
+.reg_ST {
+  background: #c2ac12;
+}
 
 /* INSTRUCTION ROW */
 
-#groupInstructions{
-	grid-column: 3;
-    grid-row: 1;
-    position: relative;
-    margin-right: 15px;
+#groupInstructions {
+  grid-column: 3;
+  grid-row: 1;
+  position: relative;
+  margin-right: 15px;
 }
-#groupInstructions  [group-content]{
-	height: 320px;
-    overflow: hidden;
-    position: relative;
+#groupInstructions [group-content] {
+  height: 320px;
+  overflow: hidden;
+  position: relative;
 }
-#groupInstructions  .row{
-    padding: 2px;
-    border-radius: 5px 0;
-    margin-right: 15px;
-}
-
-#groupInstructions  .row[current]{ background: #5c9899 !important; }
-#groupInstructions  .row[return] { margin-bottom: 10px; }
-
-#groupInstructions  .row:hover{ background: #323131; }
-
-#groupInstructions  .row > .info{
-    display: inline-block;
-    width: 30px;
+#groupInstructions .row {
+  padding: 2px;
+  border-radius: 5px 0;
+  margin-right: 15px;
 }
 
-#groupInstructions  .row > .info > *{
-    visibility: hidden;
-    color: #544e47;
+#groupInstructions .row[current] {
+  background: #5c9899 !important;
 }
-#groupInstructions  .row:hover > .info > *{ visibility: visible;}
-
-
-#groupInstructions  .row > .info > .breakpoint{
-    padding-left:3px;
-    padding-right: 3px;
-    cursor:pointer;
-}
-#groupInstructions  .row > .info > .breakpoint:hover{ color:white; }
-
-#groupInstructions  .row[breakpoint] > .info > .breakpoint{
-    visibility: visible;
-    color: #c03a3a !important;
+#groupInstructions .row[return] {
+  margin-bottom: 10px;
 }
 
-#groupInstructions  .row > .info > .current {
-    float: right;
-    padding-right: 5px;
-    cursor:pointer;
-}
-#groupInstructions  .row > .info >.current:hover{ color:white; }
-
-#groupInstructions  .row[current] > .info > .current{
-    visibility: visible;
-    color:white !important;
+#groupInstructions .row:hover {
+  background: #323131;
 }
 
+#groupInstructions .row > .info {
+  display: inline-block;
+  width: 30px;
+}
 
+#groupInstructions .row > .info > * {
+  visibility: hidden;
+  color: #544e47;
+}
+#groupInstructions .row:hover > .info > * {
+  visibility: visible;
+}
+
+#groupInstructions .row > .info > .breakpoint {
+  padding-left: 3px;
+  padding-right: 3px;
+  cursor: pointer;
+}
+#groupInstructions .row > .info > .breakpoint:hover {
+  color: white;
+}
+
+#groupInstructions .row[breakpoint] > .info > .breakpoint {
+  visibility: visible;
+  color: #c03a3a !important;
+}
+
+#groupInstructions .row > .info > .current {
+  float: right;
+  padding-right: 5px;
+  cursor: pointer;
+}
+#groupInstructions .row > .info > .current:hover {
+  color: white;
+}
+
+#groupInstructions .row[current] > .info > .current {
+  visibility: visible;
+  color: white !important;
+}
 
 #groupInstructions .row > .offset {
-    margin-right: 15px;
-    margin-left: 5px;
-    color: #5f5f5f;
+  margin-right: 15px;
+  margin-left: 5px;
+  color: #5f5f5f;
 }
 
-#groupInstructions  .row > .opcode {
-    color: cadetblue;
-    margin-right: 7px;
+#groupInstructions .row > .opcode {
+  color: cadetblue;
+  margin-right: 7px;
 }
-#groupInstructions  .row[current] > .opcode{ color:white !important; }
-
-#groupInstructions  .row > .nemonic {
-    color: #3b696a;
+#groupInstructions .row[current] > .opcode {
+  color: white !important;
 }
 
-#control{
-    grid-column: 2;
-    grid-row: 2;
-}
-#actions{
-	grid-column: 1<;
-    grid-row: 2;
+#groupInstructions .row > .nemonic {
+  color: #3b696a;
 }
 
-
-#groupMemoryMap #memoryMapSizeLabelStart{
-	display: inline-block;
-    height: 20px;
-    border-left: 1px solid #4e4e4e;
-    padding-left: 5px;
-    margin: 0;
+#control {
+  grid-column: 2;
+  grid-row: 2;
+}
+#actions {
+  grid-column: 1;
+  grid-row: 2;
 }
 
-#groupMemoryMap #memoryMapSizeLabelEnd{
-	display: inline-block;
-    height: 20px;
-    border-right: 1px solid #4e4e4e;
-    padding-right: 5px;
-    margin: 0;
-    margin-right: 10px;
-    position: relative;
-    float: right;
+#groupMemoryMap #memoryMapSizeLabelStart {
+  display: inline-block;
+  height: 20px;
+  border-left: 1px solid #4e4e4e;
+  padding-left: 5px;
+  margin: 0;
 }
 
-#memoryMap{
-    border: 1px solid #515151;
-    height: 40px;
-    width: 98%;
-    position: relative;
+#groupMemoryMap #memoryMapSizeLabelEnd {
+  display: inline-block;
+  height: 20px;
+  border-right: 1px solid #4e4e4e;
+  padding-right: 5px;
+  margin: 0;
+  margin-right: 10px;
+  position: relative;
+  float: right;
 }
 
-#memoryMap > div{
-	width: 100px;
-    border-right: 1px solid #595959;
-    display: inline-block;
-    position: relative;
-    height: 100%;
+#memoryMap {
+  border: 1px solid #515151;
+  height: 40px;
+  width: 98%;
+  position: relative;
+}
+
+#memoryMap > div {
+  width: 100px;
+  border-right: 1px solid #595959;
+  display: inline-block;
+  position: relative;
+  height: 100%;
 }

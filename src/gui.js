@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
          * [GUIRefresh description]
          */
         GUIRefresh : function(){
-            return;
+            //return;
             // *** REGISTERS
             // Update Registers view
             app.GUI.reg_V0.innerHTML = app.toHex( app.Register.V0, 1 );
